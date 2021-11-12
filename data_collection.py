@@ -55,7 +55,7 @@ def main():
             print(curr_info_json)
             if is_user_live(curr_info_json):
                 update_data(streamer, curr_info_json)
-        time.sleep(3)
+        time.sleep(5)
 
 if __name__ == '__main__':
     main()
