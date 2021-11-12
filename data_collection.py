@@ -53,10 +53,14 @@ def main():
     print(streamers)
     while True:
         for streamer in streamers:
-            curr_info_json = curr_info(streamer)
-            print(curr_info_json)
-            if is_user_live(curr_info_json):
-                update_data(streamer, curr_info_json)
+            try:
+                curr_info_json = curr_info(streamer)
+                if is_user_live(curr_info_json):
+                    update_data(streamer, curr_info_json)
+            except Exception:
+                pass
+            time.sleep(10)
+           
 
 if __name__ == '__main__':
     main()
