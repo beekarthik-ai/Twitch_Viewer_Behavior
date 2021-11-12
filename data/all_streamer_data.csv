@@ -1,1 +1,2 @@
-streamer, time, start_time, game_name, viewer_count
+streamer, time, start_time, game_name, language, is_mature, viewer_count
+

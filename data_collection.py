@@ -13,7 +13,8 @@ OAUTH_TOKEN = credentials["OAUTH_TOKEN"]
 
 f.close()
 
-streamers = ["xqcow", "hasanabi", "ludwig", "nl_kripp", "lirik", "shroud", "mizkif", "gmhikaru", "healthygamer_gg"]
+streamers = open("data/channels.txt").readlines()
+streamers = [name[:-1] for name in streamers]
 
 def curr_info(username):
     endpoint = 'https://api.twitch.tv/helix/streams?'
@@ -44,18 +45,18 @@ def get_viewers(name):
 def update_data(streamer, curr_info_json):
     with open("data/all_streamer_data.csv", "a") as database:
         writer = csv.writer(database)
-        viewers = get_viewers(streamer)
-        writer.writerow([streamer, datetime.now(), curr_info_json['started_at'], curr_info_json['game_name'], curr_info_json['viewer_count'], viewers])
+        #viewers = get_viewers(streamer)
+        writer.writerow([streamer, datetime.now(), curr_info_json['started_at'], curr_info_json['game_name'],
+                            curr_info_json['language'], curr_info_json['viewer_count'],  curr_info_json['is_mature']])
 
 def main():
-
+    print(streamers)
     while True:
         for streamer in streamers:
             curr_info_json = curr_info(streamer)
             print(curr_info_json)
             if is_user_live(curr_info_json):
                 update_data(streamer, curr_info_json)
-        time.sleep(5)
 
 if __name__ == '__main__':
     main()
